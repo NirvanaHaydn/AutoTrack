@@ -62,6 +62,16 @@ namespace AutoTrack.Controllers
             return View(); 
         }
 
+        public async Task<IActionResult> Details(int? id)//interrogação pois pode receber nulo
+        {
+            if(id==null)
+                return NotFound(); //se o id for nulo ele retorna not found 
+            var dados = await _context.Veiculos.FindAsync(id); //busca o veiculo no banco de dados
+            if(dados == null)
+                return NotFound(); //se o veiculo não for encontrado ele retorna not found
+            return View(dados); //exiba o formulario para o meu usuario
+
+        }
 
 
 

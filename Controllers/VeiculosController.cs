@@ -34,5 +34,37 @@ namespace AutoTrack.Controllers
             }
             return View(); //receber requisiçao via post com os dados preenchidos
         }
+        public async Task<IActionResult> Edit(int? id) //recebe o id para fazer o processamento dos dados
+        {
+            if(id == null) 
+                return NotFound(); 
+                var dados = await _context.Veiculos.FindAsync(id); //busca o veiculo no banco de dados
+            
+            if(dados == null) 
+                return NotFound(); 
+
+            return View(dados); //exiba o formulario para o meu usuario
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id, Veiculo veiculo)
+        {
+            if(id != veiculo.Id)
+                return NotFound(); //não posso alterar o id do veiculo pois é chave primaria, se o id for diferente do id do veiculo ele retorna not found
+
+            if (ModelState.IsValid)
+            {
+                _context.Veiculos.Update(veiculo); 
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+
+            return View(); 
+        }
+
+
+
+
+
     }
 }

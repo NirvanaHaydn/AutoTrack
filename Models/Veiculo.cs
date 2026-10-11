@@ -24,5 +24,7 @@ namespace AutoTrack.Models
         [Required(ErrorMessage = "O campo Ano do Modelo é obrigatório.")]
         [Display(Name = "Ano do Modelo")]
         public int AnoModelo { get; set; }
+
+        public ICollection<Consumo> Consumos { get; set; } //um veiculo possui varios consumos e um consumo esta associado a um veiculo
     }
 }

@@ -73,6 +73,31 @@ namespace AutoTrack.Controllers
 
         }
 
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+                return NotFound();  
+            var dados = await _context.Veiculos.FindAsync(id); 
+            if (dados == null)
+                return NotFound(); 
+            return View(dados); 
+
+        }
+
+        [HttpPost, ActionName("Delete")] //ActionName é usado para mapear a ação do método para o nome da ação Delete
+        public async Task<IActionResult> DeleteConfirmed(int? id) //rota para confirmar que quer deletar o veiculo do banco de dados
+        {
+            if (id == null)
+                return NotFound();  
+            var dados = await _context.Veiculos.FindAsync(id); 
+            if (dados == null)
+                return NotFound();
+            _context.Veiculos.Remove(dados); //remove o veiculo do banco de dados
+            await _context.SaveChangesAsync(); //salva as alterações no banco de dados
+
+            return RedirectToAction("Index"); //redireciona para a rota index 
+
+        }
 
 
 

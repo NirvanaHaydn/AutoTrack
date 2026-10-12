@@ -1,0 +1,63 @@
+@model IEnumerable<AutoTrack.Models.Consumo>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Consumos</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Adicionar Novo Consumo</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Descricao)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Data)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Valor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Km)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Tipo)
+            </th>
+            <th>Veículo</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(model => item.Descricao)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Data)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Valor)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Km)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Tipo)
+            </td>
+            <td>
+            @item.Veiculo?.Nome
+            </td>
+            <td>
+                <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
+                <a class="btn btn-info" asp-action="Details" asp-route-id="@item.Id">Detalhes</a> |
+                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Excluir</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
